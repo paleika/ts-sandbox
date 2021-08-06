@@ -5,7 +5,7 @@ module.exports = (env) => {
   const { mode = 'development' } = env;
   return {
     entry: {
-      index: "./src/index.js"
+      index: "./src/index.tsx"
     },
     mode: mode,
     devtool: "inline-source-map",
@@ -21,6 +21,11 @@ module.exports = (env) => {
           loader: "babel-loader"
         },
         {
+          test: /\.tsx?$/,
+          exclude: /node_modules/,
+          loader: "ts-loader"
+        },
+        {
           test: /\.(png|jpg|jpeg|gif)$/,
           use: [
             {
@@ -34,6 +39,10 @@ module.exports = (env) => {
         }
       ]
     },
+    resolve: {
+      extensions: ['.tsx', '.ts', '.js'],
+    },
+
     plugins: [
       new HtmlWebpackPlugin({
         title: "TS Box",
