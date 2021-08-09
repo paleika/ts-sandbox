@@ -13,3 +13,4 @@ This is a pet project for testing some features, packages or technologies before
 
 - **yarn start** for dev build.<br />Project is served at localhost:8080
 
+- **yarn test** to run all tests
