@@ -26,6 +26,10 @@ module.exports = (env) => {
           loader: "ts-loader"
         },
         {
+          test: /\.css$/,
+          use: ["style-loader", "css-loader"]
+        },
+        {
           test: /\.(png|jpg|jpeg|gif)$/,
           use: [
             {
