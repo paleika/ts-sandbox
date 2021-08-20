@@ -1,0 +1,12 @@
+.app-logo {
+  height: 48px;
+  width: 48px;
+  border-radius: 20px;
+  background-color: var(--bs-teal);
+  text-align: center;
+  line-height: 48px;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--bs-primary);
+  transform: rotate(-20deg);
+}
