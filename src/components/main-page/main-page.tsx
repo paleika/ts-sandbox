@@ -1,7 +1,7 @@
 import React from 'react';
+import { useRouter } from 'react-router5';
 import { Card, Col, Container, Row } from 'react-bootstrap';
 import image from '../../assets/belarus.png';
-import Country from '../countries/country';
 
 const MainContent = () => (
   <div>
@@ -15,9 +15,9 @@ const MainContent = () => (
 )
 
 const SidebarCard = () => {
-  const [call, setCall] = React.useState(false);
+  const router = useRouter();
 
-  if (call) return <Country code="BY" />
+  const handleClick = () => router.navigate('countries.country', { code: "BY" });
 
   return (
     <Card>
@@ -27,7 +27,7 @@ const SidebarCard = () => {
         <Card.Text>
           Belarus, officially the Republic of Belarus, is a landlocked country in Eastern Europe.
         </Card.Text>
-        <Card.Link onClick={() => setCall(true)}>See more</Card.Link> // TODO: go to country page on click
+        <Card.Link onClick={handleClick}>See more</Card.Link>
       </Card.Body>
     </Card>
   )

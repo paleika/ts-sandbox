@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link, useRoute } from 'react-router5';
 import { gql, useQuery, ApolloError } from '@apollo/client';
 import { Col, Container, ListGroup, Row } from 'react-bootstrap';
 import Filters from './filters';
@@ -26,11 +27,6 @@ interface CountriesListProps {
   error?: ApolloError;
   data?: CountriesType;
   activeCode: string | null;
-  setActiveCode: (arg: string) => void;
-}
-
-interface CountriesProps {
-  activeCountry?: string;
 }
 
 const COUNTRIES = gql`
@@ -42,7 +38,7 @@ const COUNTRIES = gql`
   }
 `;
 
-const CountriesList = ({ loading, error, data, activeCode, setActiveCode }: CountriesListProps) => {
+const CountriesList = ({ loading, error, data, activeCode }: CountriesListProps) => {
   if (loading) return <Spinner />
   if (error || !data) return <p>Error =(</p>
 
@@ -58,9 +54,11 @@ const CountriesList = ({ loading, error, data, activeCode, setActiveCode }: Coun
       {data.countries.map(({ code, name }) => (
         <ListGroup.Item
           key={code}
+          as={Link}
+          routeName="countries.country"
+          routeParams={{ code }}
           active={code === activeCode}
           style={{ cursor: "pointer" }}
-          onClick={() => setActiveCode(code)}
         >
           {name}
         </ListGroup.Item>
@@ -69,8 +67,9 @@ const CountriesList = ({ loading, error, data, activeCode, setActiveCode }: Coun
   )
 }
 
-const Countries = ({ activeCountry }: CountriesProps) => {
-  const [activeCode, setActiveCode] = React.useState(activeCountry || null);
+const Countries = () => {
+  const { route } = useRoute();
+  const countryCode = route.params.code || null;
   const [filter, setFilter] = React.useState<FiltersType>({});
   const { loading, error, data, refetch } = useQuery<CountriesType>(COUNTRIES, {
     variables: { filter },
@@ -81,10 +80,10 @@ const Countries = ({ activeCountry }: CountriesProps) => {
       <Filters setFilter={setFilter} refetch={refetch} />
       <Row>
         <Col>
-          <CountriesList loading={loading} error={error} data={data} activeCode={activeCode} setActiveCode={setActiveCode} />
+          <CountriesList loading={loading} error={error} data={data} activeCode={countryCode} />
         </Col>
         <Col>
-          {activeCode && <Country code={activeCode} />}
+          {route.name === 'countries.country' && <Country code={countryCode} />}
         </Col>
       </Row>
     </Container>
