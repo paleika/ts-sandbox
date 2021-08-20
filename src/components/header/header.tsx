@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router5';
 import { Navbar, Container, Nav } from 'react-bootstrap';
 import Logo from './logo';
 
@@ -9,10 +10,10 @@ const Header = () => {
         <Navbar.Brand as={Logo} />
         <Nav>
           <Nav.Item>
-            <Nav.Link eventKey="link-home">Home</Nav.Link>
+            <Nav.Link as={Link} routeName="main">Home</Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link eventKey="link-planets">Countries</Nav.Link>
+            <Nav.Link as={Link} routeName="countries">Countries</Nav.Link>
           </Nav.Item>
         </Nav>
       </Container>
