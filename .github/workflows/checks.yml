@@ -1,4 +1,4 @@
-name: Linters and Tests
+name: linters and tests
 on:
   pull_request:
     branches:
@@ -30,6 +30,7 @@ jobs:
       run: |
         SUMMARY="$(npm test --coverage -- --coverageReporters='text-summary' | tail -2 | head -1)"
         TOKENS=($SUMMARY)
+        echo ${TOKENS}
         echo "COVERAGE=$(echo ${TOKENS[2]})" >> $GITHUB_ENV
 
         REF=${{ github.ref }}
