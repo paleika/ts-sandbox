@@ -27,4 +27,7 @@ jobs:
     #   run: yarn typecheck
 
     - name: Run unit tests
-      run: yarn test    
+      run: yarn test   
+
+    - name: Generate badge
+      run: yarn jest-coverage-badges --output "./github/badges" 
