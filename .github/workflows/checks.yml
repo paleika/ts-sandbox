@@ -28,7 +28,7 @@ jobs:
 
     - name: Run unit tests
       run: |
-        SUMMARY="$(npm test --coverage -- --coverageReporters='text-summary' | tail -2 | head -1)"
+        SUMMARY="$(yarn test --coverage -- --coverageReporters=text-summary | tail -2 | head -1)"
         TOKENS=($SUMMARY)
         echo ${TOKENS}
         echo "COVERAGE=$(echo ${TOKENS[2]})" >> $GITHUB_ENV
