@@ -91,3 +91,4 @@ const Countries = () => {
 }
 
 export default Countries;
+export { COUNTRIES };

@@ -9,6 +9,14 @@ interface ContinentsType {
   }[];
 }
 
+interface ContinentFilter {
+  eq: string;
+}
+
+interface CurrencyFilter {
+  regex: string;
+}
+
 interface FiltersProps {
   setFilter: (arg: object) => void;
   refetch: (arg?: object) => Promise<any>;
@@ -24,6 +32,8 @@ const CONTINENTS = gql`
 `;
 
 const Filters = ({ setFilter, refetch }: FiltersProps) => {
+  const [continent, setContinent] = React.useState<ContinentFilter | undefined>(undefined);
+  const [currency, setCurrency] = React.useState<CurrencyFilter | undefined>(undefined);
   const [continentOptions, setContinentOptions] = React.useState<ContinentsType | null>(null);
   const [loadContinents, { data: continentsData }] = useLazyQuery<ContinentsType, OperationVariables>(CONTINENTS);
 
@@ -37,11 +47,26 @@ const Filters = ({ setFilter, refetch }: FiltersProps) => {
     }
   }
 
-  const handleSubmit = (e: any) => {
+  const handleContinentChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const continentValue = e.target.value;
+    if (continentValue === '') {
+      setContinent(undefined);
+    } else {
+      setContinent({ eq: continentValue })
+    }
+  }
+
+  const handleCurrencyChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const currencyValue = e.target.value;
+    if (currencyValue === '') {
+      setCurrency(undefined);
+    } else {
+      setCurrency({ regex: currencyValue })
+    }
+  }
+
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const [continentTarget, currencyTarget] = e.target;
-    const continent = continentTarget.value ? { eq: continentTarget.value } : undefined;
-    const currency = currencyTarget.value ? { regex: currencyTarget.value } : undefined;
     setFilter({ continent, currency });
     refetch()
   }
@@ -55,7 +80,7 @@ const Filters = ({ setFilter, refetch }: FiltersProps) => {
             <Form onSubmit={handleSubmit}>
               <Row className="align-items-end">
                 <Col xs={5}>
-                  <Form.Control as="select" className="form-select" onFocus={handleLoadContinents}>
+                  <Form.Control as="select" className="form-select" onFocus={handleLoadContinents} onChange={handleContinentChange}>
                     <option value={''}>Choose continent...</option>
                     {continentOptions === null
                       ? <option className="text-muted">Loading options...</option>
@@ -70,7 +95,7 @@ const Filters = ({ setFilter, refetch }: FiltersProps) => {
                   </Form.Control>
                 </Col>
                 <Col xs={5}>
-                  <Form.Control as="select" className="form-select">
+                  <Form.Control as="select" className="form-select" onChange={handleCurrencyChange}>
                     <option value={''}>Choose currency...</option>
                     <option value="EUR">EUR</option>
                     <option value="GBP">GBP</option>
@@ -90,3 +115,4 @@ const Filters = ({ setFilter, refetch }: FiltersProps) => {
 };
 
 export default Filters;
+export { CONTINENTS };

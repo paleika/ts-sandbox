@@ -7,7 +7,9 @@ const Header = () => {
   return (
     <Navbar sticky="top" variant="dark" bg="primary">
       <Container>
-        <Navbar.Brand as={Logo} />
+        <Navbar.Brand as={Link} routeName="main">
+          <Logo />
+        </Navbar.Brand>
         <Nav>
           <Nav.Item>
             <Nav.Link as={Link} routeName="main">Home</Nav.Link>

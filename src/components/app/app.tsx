@@ -6,7 +6,9 @@ import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
+  HttpLink,
 } from "@apollo/client";
+import fetch from 'cross-fetch';
 
 import Header from '../header';
 import Breadcrumbs from '../breadcrumbs';
@@ -16,7 +18,10 @@ const router = configureRouter();
 router.start();
 
 const client = new ApolloClient({
-  uri: 'https://countries.trevorblades.com',
+  link: new HttpLink({
+    uri: 'https://countries.trevorblades.com',
+    fetch,
+  }),
   cache: new InMemoryCache(),
 });
 

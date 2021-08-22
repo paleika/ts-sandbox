@@ -79,3 +79,4 @@ const Country = ({ code }: CountryProps) => {
 // other countries of this continent
 
 export default Country;
+export { COUNTRY };
