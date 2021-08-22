@@ -28,7 +28,7 @@ jobs:
 
     - name: Run unit tests
       run: |
-        SUMMARY="$(yarn test --coverage --coverageReporters=text-summary | tail -2 | head -1)"
+        SUMMARY="$(yarn test --coverage --coverageReporters=text-summary | tail -3 | head -1)"
         TOKENS=($SUMMARY)
         echo "summary: ${SUMMARY}"
         echo "tokens: ${TOKENS[2]}"
