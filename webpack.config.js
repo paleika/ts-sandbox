@@ -11,6 +11,7 @@ module.exports = (env) => {
     devtool: "inline-source-map",
     devServer: {
       contentBase: './dist',
+      historyApiFallback: true,
     },
 
     module: {
@@ -58,9 +59,5 @@ module.exports = (env) => {
       filename: "[name].bundle.js",
       path: path.resolve(__dirname, "dist"),
     },
-
-    devServer: {
-
-    }
   }
 }
