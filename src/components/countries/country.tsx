@@ -1,6 +1,8 @@
 import React from 'react';
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { Card } from 'react-bootstrap';
+
+import { COUNTRY } from '../../queries';
 import Spinner from '../spinner';
 
 import './country.css';
@@ -23,25 +25,6 @@ interface CountryType {
 interface CountryProps {
   code: string;
 }
-
-const COUNTRY = gql`
-  query($code: ID!) {
-    country(code: $code) {
-      name
-      phone
-      currency
-      capital
-      languages {
-        name
-      }
-      emoji
-      continent {
-        name
-        code
-      }
-    }
-  }
-`;
 
 const Country = ({ code }: CountryProps) => {
   const { loading, error, data } = useQuery<CountryType>(COUNTRY, {

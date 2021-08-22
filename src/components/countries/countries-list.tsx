@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link, useRoute } from 'react-router5';
-import { gql, useQuery, ApolloError } from '@apollo/client';
+import { useQuery, ApolloError } from '@apollo/client';
 import { Col, Container, ListGroup, Row } from 'react-bootstrap';
+
+import { COUNTRIES } from '../../queries';
 import Filters from './filters';
 import Country from './country';
 import Spinner from '../spinner';
@@ -28,15 +30,6 @@ interface CountriesListProps {
   data?: CountriesType;
   activeCode: string | null;
 }
-
-const COUNTRIES = gql`
-  query($filter: CountryFilterInput) {
-    countries(filter: $filter) {
-      code
-      name
-    }
-  }
-`;
 
 const CountriesList = ({ loading, error, data, activeCode }: CountriesListProps) => {
   if (loading) return <Spinner />

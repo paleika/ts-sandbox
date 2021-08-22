@@ -1,6 +1,8 @@
 import React from 'react';
-import { gql, useLazyQuery, OperationVariables } from '@apollo/client';
+import { useLazyQuery, OperationVariables } from '@apollo/client';
 import { Button, Card, Col, Form, Row } from 'react-bootstrap';
+
+import { CONTINENTS } from '../../queries';
 
 interface ContinentsType {
   continents: {
@@ -21,15 +23,6 @@ interface FiltersProps {
   setFilter: (arg: object) => void;
   refetch: (arg?: object) => Promise<any>;
 }
-
-const CONTINENTS = gql`
-  query {
-    continents {
-      code
-      name
-    }
-  }
-`;
 
 const Filters = ({ setFilter, refetch }: FiltersProps) => {
   const [continent, setContinent] = React.useState<ContinentFilter | undefined>(undefined);

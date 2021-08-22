@@ -6,7 +6,8 @@ import configureRouter from '../../utils/create-router';
 
 import { MockedProvider } from '@apollo/client/testing';
 
-import Country, { COUNTRY } from './country';
+import Country from './country';
+import { COUNTRY } from '../../queries';
 
 const mocks = [
   {
