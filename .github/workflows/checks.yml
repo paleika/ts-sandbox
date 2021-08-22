@@ -1,0 +1,30 @@
+name: linters and tests
+on:
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+  checks:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Cache modules
+      id: yarn-cache
+      uses: actions/cache@v2
+      with:
+        path: '**/node_modules'
+        key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+    - name: Install modules
+      run: yarn --prefer-offline
+
+    # - name: Run ESLint
+    #   run: yarn lint
+
+    # - name: Run type check
+    #   run: yarn typecheck
+
+    - name: Run unit tests
+      run: yarn test    
