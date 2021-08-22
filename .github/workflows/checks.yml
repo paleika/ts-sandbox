@@ -27,30 +27,4 @@ jobs:
     #   run: yarn typecheck
 
     - name: Run unit tests
-      run: |
-        SUMMARY="$(yarn test --coverage --coverageReporters=text-summary | tail -3 | head -1)"
-        TOKENS=($SUMMARY)
-        echo "summary: ${SUMMARY}"
-        echo "tokens: ${TOKENS[2]}"
-        echo "COVERAGE=$(echo ${TOKENS[2]})" >> $GITHUB_ENV
-
-        REF=${{ github.ref }}
-        echo "github.ref: $REF"
-        IFS='/' read -ra PATHS <<< "$REF"
-        BRANCH_NAME="${PATHS[1]}_${PATHS[2]}"
-        echo $BRANCH_NAME
-        echo "BRANCH=$(echo ${BRANCH_NAME})" >> $GITHUB_ENV
-
-    - name: Create Coverage Badge
-      uses: schneegans/dynamic-badges-action@v1.1.0
-      with:
-        auth: ${{ secrets.GIST_SECRET }}
-        gistID: 13c98d860815915c1d6392cd37b7a873
-        filename: ts-sandbox_${{ env.BRANCH }}.json
-        label: coverage
-        message: ${{ env.COVERAGE }}
-        namedLogo: jest
-        color: blue
-        logoColor: blue
-
-    
+      run: yarn test    

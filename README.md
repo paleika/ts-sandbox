@@ -1,5 +1,5 @@
 # 🐈 Intro
-![Coverage Badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/paleika/13c98d860815915c1d6392cd37b7a873/raw/ts-sandbox_pull_13.json)
+![Coverage Badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/paleika/13c98d860815915c1d6392cd37b7a873/raw/ts-sandbox_coverage.json)
 <br />
 This is a pet project for testing some features, packages or technologies before using them at work 🙈
 
