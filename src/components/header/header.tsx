@@ -1,16 +1,19 @@
 import React from 'react';
-import { Link } from 'react-router5';
+import { Link, useRoute } from 'react-router5';
 import { Navbar, Container, Nav } from 'react-bootstrap';
 import Logo from './logo';
 
 const Header = () => {
+  const { route } = useRoute();
+  const topRouteName = route.name.split('.')[0];
+
   return (
     <Navbar sticky="top" variant="dark" bg="primary">
       <Container>
         <Navbar.Brand as={Link} routeName="main">
           <Logo />
         </Navbar.Brand>
-        <Nav>
+        <Nav activeKey={topRouteName}>
           <Nav.Item>
             <Nav.Link as={Link} routeName="main">Home</Nav.Link>
           </Nav.Item>
